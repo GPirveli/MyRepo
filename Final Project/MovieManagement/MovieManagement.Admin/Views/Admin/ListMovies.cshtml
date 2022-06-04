@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MovieViewModel>
+
+@{
+    ViewData["Title"] = "ListMovies";
+}
+
+<h1>ListMovies</h1>
+
+<p>
+    <a asp-action="CreateMovie">Create New</a>
+</p>
+<div class="maind-div">
+    @foreach (var movie in Model)
+    {
+        <div class="movie-div">
+            <img src="@movie.Url" />
+            <div style="font-weight: bold;">@movie.Title</div>
+            <div>@movie.Genre</div>
+            @if (User.IsInRole("Admin"))
+            {
+            @if (movie.IsActive)
+            {
+                <a asp-action="ChangeActiveStatus" asp-controller="Admin" asp-route-movieId="@movie.Id" class="btn btn-danger">Unpublish</a>
+            }
+            else
+            {
+                <a asp-action="ChangeActiveStatus" asp-controller="Admin" asp-route-movieId="@movie.Id" class="btn btn-primary">Publish</a>
+            }
+            }
+            <a asp-action="EditMovie" asp-controller="Admin" asp-route-movieId="@movie.Id" class="btn">Edit</a>
+            <a asp-action="DeleteMovie" asp-controller="Admin" asp-route-movieId="@movie.Id" class="btn btn-danger">Delete</a>
+        </div>
+    }
+</div>
+
+<style>
+    .maind-div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .movie-div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    img {
+        height: 200px;
+        width: 100px;
+    }
+</style>

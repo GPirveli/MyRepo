@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AccountViewModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Account> SignInManager
+
+<link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+@if (Model.Any())
+{
+    @foreach (var acc in Model)
+    {
+
+
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@acc.UserName - @acc.Role - @(acc.IsActive ? "Active" : "InActive")</h5>
+                @acc.FirstName
+                @acc.LastName
+
+            </div>
+            <div class="card-footer">
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="ChangeRole" asp-controller="Admin" asp-route-accId="@acc.Id" asp-route-roleName="Moderator" class="btn btn-primary">Make Moderator</a>
+                    <a asp-action="ChangeRole" asp-controller="Admin" asp-route-accId="@acc.Id" asp-route-roleName="RegisteredUser" class="btn btn-primary">Make Registered User</a>
+                    <a asp-action="ActivateAccount" class="btn btn-success" asp-route-accId="@acc.Id">Activate</a>
+                    <a asp-action="DeleteAccount" class="btn btn-danger" asp-route-accId="@acc.Id">Delete</a>
+                }
+                <a asp-action="GetBookedTicketsByUser" asp-controller="Admin" class="btn" asp-route-accId="@acc.Id">Booked Tickets</a>
+            </div>
+        </div>
+    }
+}

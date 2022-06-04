@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "MovieManagement.Worker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+﻿@model bool
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Account> SignInManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if (Model)
+{
+    <a asp-action="ListAccounts" asp-controller="Admin" class="btn btn-primary">User List</a>
+    <a asp-action="ListMovies" asp-controller="Admin" class="btn btn-primary">Moderator's Uploaded Movies</a>
+    <a asp-action="CreateMovie" asp-controller="Admin" class="btn btn-primary">Upload Movie</a>
+}
+else
+{
+    <a asp-action="CreateMovieByModerator" asp-controller="Admin" class="btn btn-primary">Upload Movie</a>
+}
